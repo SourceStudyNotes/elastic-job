@@ -186,7 +186,7 @@ public final class JobNodeStorage {
     public void executeInLeader(final String latchNode, final LeaderExecutionCallback callback) {
         try (LeaderLatch latch = new LeaderLatch(getClient(), jobNodePath.getFullPath(latchNode))) {
             latch.start();
-            latch.await();
+            latch.await();//等待成为主节点
             callback.execute();
         //CHECKSTYLE:OFF
         } catch (final Exception ex) {

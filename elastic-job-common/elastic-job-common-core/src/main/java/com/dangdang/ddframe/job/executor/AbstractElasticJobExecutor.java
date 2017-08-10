@@ -100,7 +100,7 @@ public abstract class AbstractElasticJobExecutor {
         } catch (final JobExecutionEnvironmentException cause) {
             jobExceptionHandler.handleException(jobName, cause);
         }
-        ShardingContexts shardingContexts = jobFacade.getShardingContexts();
+        ShardingContexts shardingContexts = jobFacade.getShardingContexts();//判断是不是Master，如果不是master都在这里阻塞
         if (shardingContexts.isAllowSendJobEvent()) {
             jobFacade.postJobStatusTraceEvent(shardingContexts.getTaskId(), State.TASK_STAGING, String.format("Job '%s' execute begin.", jobName));
         }
